@@ -35,4 +35,5 @@ abstract class BaseConfig
     }
 
     abstract public static function fromConfigFile(string $path):static;
+    abstract public static function fromArray(string $path):static;
 }
