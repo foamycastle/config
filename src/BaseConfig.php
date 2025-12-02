@@ -11,6 +11,7 @@ namespace Foamycastle\Config;
 
 abstract class BaseConfig
 {
+    public const NAME = 'config';
     private array $config;
     private string $name;
     protected function __construct(string $name)
@@ -34,6 +35,15 @@ abstract class BaseConfig
         return $this->name;
     }
 
-    abstract public static function fromConfigFile(string $path):static;
+    static function fromConfigFile(string $path): self
+    {
+        if(!file_exists($path)){
+            return new static(static::NAME);
+        }
+        $configFunction=\Closure::fromCallable(include($path));
+        $config=new static(static::NAME);
+        $configFunction($config);
+        return $config;
+    }
     abstract public static function fromArray(string $path):static;
 }
