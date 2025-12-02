@@ -35,7 +35,7 @@ abstract class BaseConfig
         return $this->name;
     }
 
-    static function fromConfigFile(string $path): self
+    static function fromConfigFile(string $path): static
     {
         if(!file_exists($path)){
             return new static(static::NAME);
@@ -45,5 +45,5 @@ abstract class BaseConfig
         $configFunction($config);
         return $config;
     }
-    abstract public static function fromArray(string $path):static;
+    abstract public static function fromArray(array $path):static;
 }
