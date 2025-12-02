@@ -46,5 +46,5 @@ abstract class BaseConfig
         return ($this->config[$key] ?? null);
     }
 
-    abstract static function fromConfigFile(string $path):static;
+    abstract public static function fromConfigFile(string $path):static;
 }
