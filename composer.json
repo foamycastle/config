@@ -1,0 +1,21 @@
+{
+  "name": "foamycastle/config",
+  "description": "base class for any config",
+  "minimum-stability": "dev",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Aaron Sollman",
+      "email": "unclepong@gmail.com"
+    }
+  ],
+  "require": {
+    "php": "^8.4",
+    "foamycastle/parsenv": "^1"
+  },
+  "autoload": {
+    "psr-4": {
+      "Foamycastle\\Config\\":"src"
+    }
+  }
+}
