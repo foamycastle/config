@@ -9,7 +9,7 @@
 
 namespace Foamycastle\Config;
 
-abstract class BaseConfig implements ConfigInterface
+abstract class BaseConfig
 {
     protected string $tempPath;
     private array $config;
@@ -35,15 +35,16 @@ abstract class BaseConfig implements ConfigInterface
         }
     }
 
-    function set($key, $value): static
+    protected function set($key, $value): static
     {
         $this->config[$key] = $value;
         return $this;
     }
 
-    function get($key): mixed
+    protected function get($key): mixed
     {
         return ($this->config[$key] ?? null);
     }
 
+    abstract static function fromConfigFile(string $path):static;
 }
