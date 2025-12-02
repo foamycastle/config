@@ -11,28 +11,12 @@ namespace Foamycastle\Config;
 
 abstract class BaseConfig
 {
-    protected string $tempPath;
     private array $config;
-    protected $configFile;
+    private string $name;
     protected function __construct(string $name)
     {
-        $this->tempPath = sys_get_temp_dir().DIRECTORY_SEPARATOR.$name;
-        if(!file_exists($this->tempPath)){
-            touch($this->tempPath);
-            $this->config=[];
-        }else{
-            $this->config = json_decode(file_get_contents($this->tempPath), true);
-        }
-    }
-    public function __destruct()
-    {
-        try {
-            $this->configFile = @fopen($this->tempPath, 'w');
-            @fwrite($this->configFile, json_encode($this->config));
-            @fclose($this->configFile);
-        }catch (\Exception|\Error $e){
-            fputs(STDERR, $e->getMessage());
-        }
+        $this->name = $name;
+        $this->config = [];
     }
 
     protected function set($key, $value): static
@@ -44,6 +28,10 @@ abstract class BaseConfig
     protected function get($key): mixed
     {
         return ($this->config[$key] ?? null);
+    }
+    public function getName(): string
+    {
+        return $this->name;
     }
 
     abstract public static function fromConfigFile(string $path):static;
